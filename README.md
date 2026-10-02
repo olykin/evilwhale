@@ -9,10 +9,12 @@
 | 应用名 | 邪恶鲸鱼 |
 | 包名 | `com.evilwhale.pet` |
 | 版本 | 2.0 (versionCode 6) |
-| 安装包 | `dist/EvilWhale-2.0.apk` (2.94 MB) |
+| **下载 APK** | **[Releases · v2.0](https://github.com/olykin/evilwhale/releases/tag/v2.0)** (2.94 MB) |
 | 最低版本 | Android 5.0 (API 21) |
 | 目标版本 | Android 15 (API 35) |
 | 签名 | v1 + v2，调试自签名（`keystore/evilwhale.jks`） |
+
+> APK 在 Releases 里，不在仓库里（二进制不进版本库）。想自己构建见第十二节。
 
 ---
 
