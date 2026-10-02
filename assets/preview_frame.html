@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0A1330">
+<title>邪恶鲸鱼</title>
+<link rel="stylesheet" href="pet.css">
+</head>
+<body>
+
+<div id="bg">
+  <span class="bubble b1"></span>
+  <span class="bubble b2"></span>
+  <span class="bubble b3"></span>
+  <span class="bubble b4"></span>
+  <span class="bubble b5"></span>
+  <span class="glow"></span>
+</div>
+
+<header id="hud">
+  <div class="bar-top">
+    <div class="tag">
+      <span class="dot"></span>
+      <span class="name" id="petName">邪恶鲸鱼</span>
+    </div>
+    <button id="lvl" class="lvl" type="button">羁绊 1</button>
+    <div class="coins" id="coins"><span class="c-ico">🪙</span><span id="coinValue">0</span></div>
+    <button id="shopBtn" class="icon-btn" type="button">🏪</button>
+    <button id="voiceBtn" class="icon-btn" type="button">🗣️</button>
+    <button id="musicBtn" class="icon-btn" type="button">🔊</button>
+    <button id="switchBtn" class="switch-btn" type="button">切换</button>
+  </div>
+  <div class="bar-stats">
+    <div class="stat" data-k="hunger"><span class="ico">🍚</span><span class="meter"><i></i></span></div>
+    <div class="stat" data-k="mood"><span class="ico">💙</span><span class="meter"><i></i></span></div>
+    <div class="stat" data-k="energy"><span class="ico">⚡</span><span class="meter"><i></i></span></div>
+    <div class="stat wide" data-k="favor"><span class="ico">💗</span><span class="meter"><i></i></span></div>
+  </div>
+  <div class="buffs" id="buffBar"></div>
+</header>
+
+<main id="stage">
+  <div id="bubble" class="hide"><p id="bubbleText"></p></div>
+  <div id="petWrap">
+    <div id="pet">
+      <div class="fx fx-sleep">💤</div>
+      <div class="fx fx-angry">💢</div>
+      <div class="fx fx-love">💗</div>
+      <div class="fx fx-spark">✨</div>
+      <img id="whale" src="whale_body.png" alt="邪恶鲸鱼" draggable="false">
+      <div id="shadow"></div>
+    </div>
+  </div>
+  <div id="hint" class="gone">点一下她 · 按住可以拖走她</div>
+  <div id="flyLayer"></div>
+</main>
+
+<nav id="actions">
+  <button data-act="feed"><span>🐟</span><b class="btn-label">投喂</b></button>
+  <button data-act="play"><span>🎣</span><b class="btn-label">玩耍</b></button>
+  <button data-act="work" class="primary"><span>🪙</span><b class="btn-label">吃token</b></button>
+  <button data-act="pet"><span>🫳</span><b class="btn-label">摸摸</b></button>
+  <button data-act="sleep"><span>🌙</span><b class="btn-label">睡觉</b></button>
+</nav>
+
+<div id="shop" class="hide" aria-hidden="true">
+  <div class="sheet">
+    <header class="shop-head">
+      <div class="shop-title">商店<span class="sub" id="shopSub"></span></div>
+      <div class="coins big"><span class="c-ico">🪙</span><span id="shopCoins">0</span></div>
+      <button id="shopClose" class="icon-btn" type="button">✕</button>
+    </header>
+    <div class="tabs" id="shopTabs">
+      <button data-tab="food" class="on">食物</button>
+      <button data-tab="toy">玩物</button>
+      <button data-tab="bag">背包</button>
+    </div>
+    <div class="shop-body" id="shopList"></div>
+  </div>
+</div>
+
+<div id="bondPanel" class="hide" aria-hidden="true">
+  <div class="sheet">
+    <header class="shop-head">
+      <div class="shop-title">羁绊等级</div>
+      <div class="coins big"><span class="c-ico">🪙</span><span id="bondCoins">0</span></div>
+      <button id="bondClose" class="icon-btn" type="button">✕</button>
+    </header>
+    <div class="shop-body" id="bondBody"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- Design sheet frame: identical markup to pet.html, but driven by pet.js's
+     ?shot=1 mode so nothing animates and nothing auto-hides. -->
+<script src="pet_config.js"></script>
+<script src="pet.js"></script>
+</body>
+</html>

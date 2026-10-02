@@ -1,0 +1,23 @@
+# Build intermediates — regenerate with build.ps1
+/build/
+/dist/*.apk
+/dist/*.apk.idsig
+/dist/*.idsig
+
+# Android SDK is downloaded separately (see README §12); never commit it
+/sdk/
+
+# Design/measure scratch output and screenshot intermediates
+/tools/*.png
+/tools/dom_dump.html
+/tools/metrics.json
+/tools/dl/
+/tools/*.zip
+
+# Local editor / OS noise
+.vscode/
+.idea/
+*.iml
+Thumbs.db
+desktop.ini
+*.log

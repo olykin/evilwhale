@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sprite metrics</title>
+<style>
+  html, body { margin: 0; background: #05080f; color: #cfe4ff;
+    font: 13px/1.5 Consolas, monospace; }
+  iframe { width: 390px; height: 844px; border: 0; }
+  pre { padding: 10px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<iframe id="f" src="preview_frame.html?shot=1"></iframe>
+<pre id="out">measuring…</pre>
+<script>
+  /* Measures the real on-screen footprint of each character's artwork inside
+     the phone viewport, so the per-character scale can be tuned by data
+     instead of guesswork. */
+  var CHARS = ['whale', 'miku'];
+  var lines = [];
+  var f = document.getElementById('f');
+  var out = document.getElementById('out');
+
+  function measure(i) {
+    if (i >= CHARS.length) {
+      out.textContent = lines.join('\n');
+      document.title = 'done';
+      return;
+    }
+    var c = CHARS[i];
+    f.onload = function () {
+      setTimeout(function () {
+        var d = f.contentDocument;
+        var img = d.getElementById('whale');
+        var pet = d.getElementById('pet');
+        var pr = pet.getBoundingClientRect();
+        var ir = img.getBoundingClientRect();
+        var nat = img.naturalWidth + 'x' + img.naturalHeight;
+        // opaque bounding box of the artwork via canvas
+        var cv = d.createElement('canvas');
+        cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+        var ctx = cv.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        var data = ctx.getImageData(0, 0, cv.width, cv.height).data;
+        var minx = cv.width, miny = cv.height, maxx = -1, maxy = -1;
+        for (var y = 0; y < cv.height; y++) {
+          for (var x = 0; x < cv.width; x++) {
+            if (data[(y * cv.width + x) * 4 + 3] > 8) {
+              if (x < minx) minx = x;
+              if (y < miny) miny = y;
+              if (x > maxx) maxx = x;
+              if (y > maxy) maxy = y;
+            }
+          }
+        }
+        var artW = maxx - minx + 1, artH = maxy - miny + 1;
+        var scale = ir.width / cv.width;
+        lines.push(
+          c.toUpperCase() +
+          '\n  natural      : ' + nat +
+          '\n  opaque bbox  : ' + artW + 'x' + artH +
+          '\n  displayed    : ' + ir.width.toFixed(1) + 'x' + ir.height.toFixed(1) +
+          '\n  pet box      : ' + pr.width.toFixed(1) + 'x' + pr.height.toFixed(1) +
+          '\n  art on screen: ' + (artW * scale).toFixed(1) + 'x' + (artH * scale).toFixed(1) +
+          '\n  viewport     : ' + d.documentElement.clientWidth + 'x' + d.documentElement.clientHeight +
+          '\n  pet font-size: ' + d.defaultView.getComputedStyle(d.documentElement).fontSize
+        );
+        measure(i + 1);
+      }, 700);
+    };
+    f.src = 'preview_frame.html?shot=1&char=' + c;
+  }
+  measure(0);
+</script>
+</body>
+</html>
